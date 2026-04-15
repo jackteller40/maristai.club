@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inquiry | Marist AI Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero subpage-hero">
+        <nav class="topbar">
+          <div class="brand">
+            <img class="brand-logo" src="marist-ai-club-logo.png" alt="Marist University AI Club logo" />
+            <span>Marist AI Club</span>
+          </div>
+          <div class="nav-links">
+            <a href="index.html#about">About</a>
+            <a href="index.html#meetings">Meetings</a>
+            <a href="leadership.html">Leadership</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="inquiry.html">Inquiry</a>
+            <a href="jobs.html">Jobs</a>
+          </div>
+        </nav>
+
+        <section class="leadership-hero panel">
+          <p class="eyebrow">Inquiry</p>
+          <h1>Get in Touch</h1>
+          <p class="hero-text">
+            Reach out to the Marist AI Club if you have questions, want to get involved, or are
+            interested in learning more about upcoming meetings and events.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="mailto:artificialintelligence.club@marist.edu">Email the Club</a>
+            <a class="button secondary" href="https://www.instagram.com/marist_ai" target="_blank" rel="noreferrer">Visit Instagram</a>
+          </div>
+        </section>
+      </header>
+
+      <main>
+        <section class="inquiry-page-section">
+          <div class="inquiry-grid">
+            <article class="panel inquiry-card">
+              <p class="section-tag">Email</p>
+              <h2>artificialintelligence.club@marist.edu</h2>
+              <p>
+                Use email for general questions, collaboration ideas, club interest, or outreach
+                related to meetings and events.
+              </p>
+              <a class="button primary" href="mailto:artificialintelligence.club@marist.edu">Send Email</a>
+            </article>
+
+            <article class="panel inquiry-card">
+              <p class="section-tag">Instagram</p>
+              <h2>@marist_ai</h2>
+              <p>
+                Follow the club on Instagram for updates, event reminders, visuals, and club
+                announcements.
+              </p>
+              <a class="button primary" href="https://www.instagram.com/marist_ai" target="_blank" rel="noreferrer">Open Instagram</a>
+            </article>
+          </div>
+
+          <section class="panel inquiry-form-panel">
+            <p class="section-tag">Inquiry Box</p>
+            <h2>Send a message to the club</h2>
+            <p>
+              This form uses your device's email client to send a message directly to the Marist AI
+              Club.
+            </p>
+            <form
+              class="inquiry-form"
+              action="mailto:artificialintelligence.club@marist.edu"
+              method="post"
+              enctype="text/plain"
+            >
+              <label>
+                Name
+                <input type="text" name="Name" placeholder="Your name" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="Email" placeholder="you@marist.edu" required />
+              </label>
+              <label>
+                Subject
+                <input type="text" name="Subject" placeholder="Question, idea, or interest" required />
+              </label>
+              <label>
+                Message
+                <textarea name="Message" rows="6" placeholder="Write your message here..." required></textarea>
+              </label>
+              <button class="button primary form-submit" type="submit">Send Inquiry</button>
+            </form>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

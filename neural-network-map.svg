@@ -1,0 +1,21 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="1000" rx="32" fill="#081425"/>
+  <rect x="32" y="32" width="1336" height="936" rx="24" stroke="#214E72" stroke-width="2"/>
+  <g opacity="0.55">
+    <path d="M220 220L480 350L720 250L1010 370L1180 250" stroke="#67E8F9" stroke-width="4"/>
+    <path d="M220 500L480 350L720 520L1010 370L1180 560" stroke="#8DF5CF" stroke-width="4"/>
+    <path d="M220 780L480 650L720 520L1010 700L1180 560" stroke="#F8CF74" stroke-width="4"/>
+    <path d="M220 220L480 650L720 250L1010 700L1180 250" stroke="#4ADE80" stroke-width="3" stroke-dasharray="12 14"/>
+    <path d="M220 780L480 350L720 780L1010 370L1180 780" stroke="#60A5FA" stroke-width="3" stroke-dasharray="10 12"/>
+  </g>
+  <g fill="#EAF6FF">
+    <circle cx="220" cy="220" r="18"/><circle cx="220" cy="500" r="18"/><circle cx="220" cy="780" r="18"/>
+    <circle cx="480" cy="350" r="20"/><circle cx="480" cy="650" r="20"/>
+    <circle cx="720" cy="250" r="22"/><circle cx="720" cy="520" r="22"/><circle cx="720" cy="780" r="22"/>
+    <circle cx="1010" cy="370" r="20"/><circle cx="1010" cy="700" r="20"/>
+    <circle cx="1180" cy="250" r="18"/><circle cx="1180" cy="560" r="18"/><circle cx="1180" cy="780" r="18"/>
+  </g>
+  <text x="96" y="116" fill="#77E6FF" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6">GENERATED VISUAL</text>
+  <text x="96" y="184" fill="#EDF6FF" font-family="Arial, sans-serif" font-size="86" font-weight="700">Neural Network Map</text>
+  <text x="96" y="890" fill="#B4C9DE" font-family="Arial, sans-serif" font-size="30">Nodes, weights, flow paths, and layered AI structure</text>
+</svg>

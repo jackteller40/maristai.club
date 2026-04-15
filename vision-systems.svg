@@ -1,0 +1,19 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="1000" rx="32" fill="#07111F"/>
+  <rect x="88" y="128" width="1224" height="744" rx="32" fill="#0C2138" stroke="#244E74" stroke-width="2"/>
+  <text x="110" y="114" fill="#77E6FF" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6">GENERATED VISUAL</text>
+  <text x="110" y="210" fill="#EDF6FF" font-family="Arial, sans-serif" font-size="80" font-weight="700">Vision Systems</text>
+  <text x="110" y="264" fill="#B4C9DE" font-family="Arial, sans-serif" font-size="28">Detection, segmentation, perception, and multimodal sensing</text>
+  <g opacity="0.9">
+    <rect x="180" y="330" width="1040" height="430" rx="28" fill="#0A1728" stroke="#67E8F9" stroke-width="3"/>
+    <circle cx="700" cy="545" r="170" stroke="#8DF5CF" stroke-width="6"/>
+    <circle cx="700" cy="545" r="92" stroke="#77E6FF" stroke-width="6"/>
+    <circle cx="700" cy="545" r="32" fill="#F8CF74"/>
+    <rect x="250" y="400" width="130" height="90" rx="18" stroke="#77E6FF" stroke-width="4"/>
+    <rect x="1020" y="610" width="130" height="90" rx="18" stroke="#77E6FF" stroke-width="4"/>
+    <rect x="1010" y="360" width="110" height="90" rx="18" stroke="#8DF5CF" stroke-width="4"/>
+    <path d="M380 445H520M880 545H1020M930 405H830" stroke="#77E6FF" stroke-width="4" stroke-linecap="round"/>
+    <path d="M700 375V240M700 715V830M530 545H370M870 545H1030" stroke="#8DF5CF" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="110" y="920" fill="#B4C9DE" font-family="Arial, sans-serif" font-size="30">Inspired by AI perception pipelines and computer vision interfaces</text>
+</svg>

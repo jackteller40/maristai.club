@@ -1,0 +1,24 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="1000" rx="32" fill="#090F1C"/>
+  <defs>
+    <linearGradient id="g1" x1="140" y1="160" x2="1260" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="0.5" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+  </defs>
+  <rect x="64" y="64" width="1272" height="872" rx="28" fill="url(#g1)" opacity="0.18"/>
+  <text x="96" y="126" fill="#77E6FF" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="6">GENERATED VISUAL</text>
+  <text x="96" y="200" fill="#EDF6FF" font-family="Arial, sans-serif" font-size="82" font-weight="700">AI Labs Landscape</text>
+  <text x="96" y="256" fill="#B4C9DE" font-family="Arial, sans-serif" font-size="28">A stylized poster inspired by major research and product labs</text>
+  <g font-family="Arial, sans-serif" font-weight="700" fill="#F8FAFC">
+    <rect x="100" y="340" width="260" height="120" rx="20" fill="#111827"/><text x="150" y="414" font-size="54">OpenAI</text>
+    <rect x="410" y="340" width="300" height="120" rx="20" fill="#0F172A"/><text x="462" y="414" font-size="52">Anthropic</text>
+    <rect x="760" y="340" width="230" height="120" rx="20" fill="#111827"/><text x="855" y="414" font-size="54">xAI</text>
+    <rect x="1040" y="340" width="260" height="120" rx="20" fill="#0F172A"/><text x="1092" y="414" font-size="48">DeepMind</text>
+    <rect x="190" y="540" width="320" height="120" rx="20" fill="#111827"/><text x="245" y="614" font-size="50">Hugging Face</text>
+    <rect x="560" y="540" width="300" height="120" rx="20" fill="#0F172A"/><text x="628" y="614" font-size="48">Cohere</text>
+    <rect x="910" y="540" width="270" height="120" rx="20" fill="#111827"/><text x="978" y="614" font-size="48">Mistral</text>
+  </g>
+  <text x="96" y="900" fill="#B4C9DE" font-family="Arial, sans-serif" font-size="30">Research, products, safety, infrastructure, and frontier models</text>
+</svg>
