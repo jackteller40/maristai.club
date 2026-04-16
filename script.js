@@ -34,6 +34,26 @@ const chatbotKnowledge = [
       "The executive board includes Jack Teller (President), William Shockley (Vice President), Ethan Korkes (Secretary), and Jiwesh Rajbhandari (Treasurer).",
   },
   {
+    match: ["president", "who is the president", "club president", "who's the president"],
+    answer:
+      "Jack Teller is the President of the Marist AI Club.",
+  },
+  {
+    match: ["vice president", "who is the vice president", "who's the vice president"],
+    answer:
+      "William Shockley is the Vice President of the Marist AI Club.",
+  },
+  {
+    match: ["secretary", "who is the secretary", "who's the secretary"],
+    answer:
+      "Ethan Korkes is the Secretary of the Marist AI Club.",
+  },
+  {
+    match: ["treasurer", "who is the treasurer", "who's the treasurer"],
+    answer:
+      "Jiwesh Rajbhandari is the Treasurer of the Marist AI Club.",
+  },
+  {
     match: ["what is ai", "define ai", "artificial intelligence"],
     answer:
       "Artificial intelligence is a broad field focused on building systems that can perform tasks associated with perception, reasoning, learning, language, or decision-making.",
@@ -144,7 +164,11 @@ function createChatbot() {
   }
 
   function getFallbackReply(question) {
-    const normalized = question.toLowerCase();
+    const normalized = question
+      .toLowerCase()
+      .replace(/[^\w\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
 
     const found = chatbotKnowledge.find((entry) =>
       entry.match.some((term) => normalized.includes(term))

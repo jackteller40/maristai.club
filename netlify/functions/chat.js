@@ -157,7 +157,11 @@ function getRelevantKnowledge(message) {
 }
 
 function getDeterministicReply(message) {
-  const normalized = message.toLowerCase();
+  const normalized = message
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
   const directReplies = [
     {
@@ -181,9 +185,24 @@ function getDeterministicReply(message) {
         "The club Instagram is @marist_ai.",
     },
     {
-      keys: ["who is president", "club president"],
+      keys: ["who is president", "who is the president", "club president", "whos the president"],
       answer:
         "Jack Teller is the President of the Marist AI Club.",
+    },
+    {
+      keys: ["who is vice president", "who is the vice president", "vice president", "whos the vice president"],
+      answer:
+        "William Shockley is the Vice President of the Marist AI Club.",
+    },
+    {
+      keys: ["who is secretary", "who is the secretary", "secretary", "whos the secretary"],
+      answer:
+        "Ethan Korkes is the Secretary of the Marist AI Club.",
+    },
+    {
+      keys: ["who is treasurer", "who is the treasurer", "treasurer", "whos the treasurer"],
+      answer:
+        "Jiwesh Rajbhandari is the Treasurer of the Marist AI Club.",
     },
   ];
 
