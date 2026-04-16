@@ -135,32 +135,6 @@ function jsonResponse(payload, status = 200) {
   });
 }
 
-function extractAnswer(data) {
-  if (typeof data.output_text === "string" && data.output_text.trim()) {
-    return data.output_text.trim();
-  }
-
-  if (!Array.isArray(data.output)) {
-    return "";
-  }
-
-  const parts = [];
-
-  for (const item of data.output) {
-    if (item?.type !== "message" || !Array.isArray(item.content)) {
-      continue;
-    }
-
-    for (const contentItem of item.content) {
-      if (contentItem?.type === "output_text" && typeof contentItem.text === "string") {
-        parts.push(contentItem.text);
-      }
-    }
-  }
-
-  return parts.join("\n").trim();
-}
-
 function normalizeHistory(history) {
   if (!Array.isArray(history)) {
     return [];
@@ -282,7 +256,7 @@ export default async (request) => {
       .map((entry) => `${entry.role === "assistant" ? "Assistant" : "User"}: ${entry.content}`)
       .join("\n");
 
-    const input = `
+    const userPrompt = `
 Relevant knowledge:
 ${knowledgeBlock}
 
@@ -293,17 +267,25 @@ Latest user question:
 ${message}
     `.trim();
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: "gpt-5-mini",
-        instructions: SYSTEM_PROMPT,
-        input,
-        max_output_tokens: 260,
+        model: "gpt-4.1-mini",
+        messages: [
+          {
+            role: "system",
+            content: SYSTEM_PROMPT,
+          },
+          {
+            role: "user",
+            content: userPrompt,
+          },
+        ],
+        max_tokens: 260,
       }),
     });
 
@@ -313,7 +295,10 @@ ${message}
     }
 
     const data = await response.json();
-    const answer = extractAnswer(data);
+    const answer =
+      typeof data?.choices?.[0]?.message?.content === "string"
+        ? data.choices[0].message.content.trim()
+        : "";
 
     if (!answer) {
       return jsonResponse({ error: "No answer returned from model" }, 502);
