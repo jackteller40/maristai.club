@@ -126,6 +126,15 @@ Answer style:
 - When answering club questions, be direct and specific.
 `;
 
+function jsonResponse(payload, status = 200) {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 function normalizeHistory(history) {
   if (!Array.isArray(history)) {
     return [];
@@ -214,44 +223,28 @@ function getDeterministicReply(message) {
 }
 
 export default async (request) => {
-  if (request.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Method not allowed" }),
-    };
+  if (request.method !== "POST") {
+    return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Missing OPENAI_API_KEY" }),
-    };
+    return jsonResponse({ error: "Missing OPENAI_API_KEY" }, 500);
   }
 
   try {
-    const parsed = JSON.parse(request.body || "{}");
+    const parsed = await request.json();
     const message = typeof parsed.message === "string" ? parsed.message.trim() : "";
     const history = normalizeHistory(parsed.history);
 
     if (!message) {
-      return {
-        statusCode: 400,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "Message is required" }),
-      };
+      return jsonResponse({ error: "Message is required" }, 400);
     }
 
     const deterministicReply = getDeterministicReply(message);
     if (deterministicReply) {
-      return {
-        statusCode: 200,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answer: deterministicReply }),
-      };
+      return jsonResponse({ answer: deterministicReply });
     }
 
     const relevantKnowledge = getRelevantKnowledge(message);
@@ -290,37 +283,24 @@ ${message}
 
     if (!response.ok) {
       const errorText = await response.text();
-      return {
-        statusCode: response.status,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "OpenAI request failed", details: errorText }),
-      };
+      return jsonResponse({ error: "OpenAI request failed", details: errorText }, response.status);
     }
 
     const data = await response.json();
     const answer = typeof data.output_text === "string" ? data.output_text.trim() : "";
 
     if (!answer) {
-      return {
-        statusCode: 502,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "No answer returned from model" }),
-      };
+      return jsonResponse({ error: "No answer returned from model" }, 502);
     }
 
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ answer }),
-    };
+    return jsonResponse({ answer });
   } catch (error) {
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    return jsonResponse(
+      {
         error: "Unexpected server error",
         details: error instanceof Error ? error.message : "Unknown error",
-      }),
-    };
+      },
+      500
+    );
   }
 };
