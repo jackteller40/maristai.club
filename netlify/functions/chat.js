@@ -135,6 +135,32 @@ function jsonResponse(payload, status = 200) {
   });
 }
 
+function extractAnswer(data) {
+  if (typeof data.output_text === "string" && data.output_text.trim()) {
+    return data.output_text.trim();
+  }
+
+  if (!Array.isArray(data.output)) {
+    return "";
+  }
+
+  const parts = [];
+
+  for (const item of data.output) {
+    if (item?.type !== "message" || !Array.isArray(item.content)) {
+      continue;
+    }
+
+    for (const contentItem of item.content) {
+      if (contentItem?.type === "output_text" && typeof contentItem.text === "string") {
+        parts.push(contentItem.text);
+      }
+    }
+  }
+
+  return parts.join("\n").trim();
+}
+
 function normalizeHistory(history) {
   if (!Array.isArray(history)) {
     return [];
@@ -287,7 +313,7 @@ ${message}
     }
 
     const data = await response.json();
-    const answer = typeof data.output_text === "string" ? data.output_text.trim() : "";
+    const answer = extractAnswer(data);
 
     if (!answer) {
       return jsonResponse({ error: "No answer returned from model" }, 502);
