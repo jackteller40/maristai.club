@@ -75,6 +75,8 @@ const chatbotKnowledge = [
   },
 ];
 
+const CHAT_ENDPOINT = "/.netlify/functions/chat";
+
 function createChatbot() {
   const chatbot = document.createElement("aside");
   chatbot.className = "chatbot";
@@ -115,6 +117,14 @@ function createChatbot() {
   const form = chatbot.querySelector(".chatbot-form");
   const input = chatbot.querySelector(".chatbot-input");
   const messages = chatbot.querySelector(".chatbot-messages");
+  const submit = chatbot.querySelector(".chatbot-submit");
+  const history = [
+    {
+      role: "assistant",
+      content:
+        "Hi! I can answer questions about the Marist AI Club, meeting info, leadership, and core AI topics.",
+    },
+  ];
 
   function setOpen(open) {
     panel.hidden = !open;
@@ -133,7 +143,7 @@ function createChatbot() {
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function getReply(question) {
+  function getFallbackReply(question) {
     const normalized = question.toLowerCase();
 
     const found = chatbotKnowledge.find((entry) =>
@@ -147,22 +157,64 @@ function createChatbot() {
     return "I do not have a specific answer for that yet, but you can contact the club at artificialintelligence.club@marist.edu or ask about meetings, leadership, joining, jobs, or core AI topics like machine learning and generative AI.";
   }
 
+  async function getReply(question) {
+    try {
+      const response = await fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: question,
+          history,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Chat request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (typeof data.answer === "string" && data.answer.trim()) {
+        return data.answer.trim();
+      }
+
+      throw new Error("Missing chatbot answer");
+    } catch (error) {
+      console.error("Chatbot fallback activated:", error);
+      return getFallbackReply(question);
+    }
+  }
+
+  function setBusy(busy) {
+    input.disabled = busy;
+    submit.disabled = busy;
+    submit.textContent = busy ? "Thinking..." : "Send";
+  }
+
   toggle.addEventListener("click", () => setOpen(!chatbot.classList.contains("open")));
   close.addEventListener("click", () => setOpen(false));
 
   chatbot.querySelectorAll("[data-question]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const question = button.getAttribute("data-question");
       if (!question) {
         return;
       }
+
+      setBusy(true);
       appendMessage(question, "user");
-      appendMessage(getReply(question), "bot");
+      history.push({ role: "user", content: question });
+      const reply = await getReply(question);
+      appendMessage(reply, "bot");
+      history.push({ role: "assistant", content: reply });
+      setBusy(false);
       setOpen(true);
     });
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const question = input.value.trim();
 
@@ -170,9 +222,14 @@ function createChatbot() {
       return;
     }
 
+    setBusy(true);
     appendMessage(question, "user");
-    appendMessage(getReply(question), "bot");
+    history.push({ role: "user", content: question });
+    const reply = await getReply(question);
+    appendMessage(reply, "bot");
+    history.push({ role: "assistant", content: reply });
     input.value = "";
+    setBusy(false);
     setOpen(true);
   });
 }
